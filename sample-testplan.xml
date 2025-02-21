@@ -1,0 +1,15 @@
+<suite name="Sample">
+<!--    <test name="Firefox Browser">-->
+<!--        <parameter name="browser" value="firefox"/>-->
+<!--        <classes>-->
+<!--            <class name="internet.FormAuthenticationTest"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+    <test name="Chrome Browser">
+        <parameter name="browser" value="chrome"/>
+        <parameter name="url" value="https://the-internet.herokuapp.com"/>
+        <classes>
+            <class name="internet.FormAuthenticationTest"/>
+        </classes>
+    </test>
+</suite>
