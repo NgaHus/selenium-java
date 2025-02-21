@@ -10,6 +10,10 @@
         <parameter name="url" value="https://the-internet.herokuapp.com"/>
         <classes>
             <class name="internet.FormAuthenticationTest"/>
+            <class name="internet.CheckboxesTest"/>
+            <class name="internet.DropdownTest"/>
+            <class name="internet.HyperlinkTest"/>
+            <class name="internet.JavaScriptAlertTest"/>
         </classes>
     </test>
 </suite>
