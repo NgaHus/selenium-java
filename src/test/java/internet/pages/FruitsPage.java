@@ -7,6 +7,7 @@ import supports.Browser;
 public class FruitsPage {
     Select select;
     public FruitsPage() {
+        open();
         select = new Select(Browser.getElement(By.id("fruits")));
     }
 

@@ -27,8 +27,6 @@ public class DropdownTest {
     @Test
     void ableSelectMultipleOptions(){
         FruitsPage fruitsPage = new FruitsPage();
-        fruitsPage.open();
-
         Assert.assertTrue(fruitsPage.isMultiple());
 
         fruitsPage
