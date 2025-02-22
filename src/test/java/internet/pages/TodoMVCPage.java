@@ -7,8 +7,6 @@ import supports.Browser;
 
 import java.util.List;
 
-import static java.awt.SystemColor.text;
-import static supports.Browser.click;
 import static supports.Browser.fill;
 
 public class TodoMVCPage {
@@ -39,6 +37,7 @@ public class TodoMVCPage {
 
         return todoList;
     }
+
     public WebElement getTodoByName(String todoName){
         return  Browser.getElements(By.xpath("//*[@data-testid='todo-list']/li"))
                 .stream()

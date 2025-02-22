@@ -17,6 +17,7 @@
             <class name="internet.NestedFrameTest"/>
             <class name="internet.LoginTest"/>
             <class name="internet.DemoLoginTest"/>
+            <class name="internet.TodoMVCTest"/>
         </classes>
     </test>
 </suite>

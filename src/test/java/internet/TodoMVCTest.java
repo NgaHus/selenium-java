@@ -31,14 +31,10 @@ public class TodoMVCTest {
     @Test
     public void ableMarkCompleteTodo() {
         todoMVCPage.addNewTodo("abc");
-
-        List<String> todoList = todoMVCPage.getTodoList();
         todoMVCPage.markComplete("abc");
 
         Assert.assertTrue(todoMVCPage.isComplete("abc"));
     }
-
-
 
     @AfterMethod
     public void tearDown() {
