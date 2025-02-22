@@ -14,6 +14,7 @@
             <class name="internet.DropdownTest"/>
             <class name="internet.HyperlinkTest"/>
             <class name="internet.JavaScriptAlertTest"/>
+            <class name="internet.NestedFrameTest"/>
         </classes>
     </test>
 </suite>

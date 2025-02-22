@@ -1,38 +1,45 @@
 package internet;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import internet.pages.NestedFramePage;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import supports.Browser;
 
 public class NestedFrameTest {
+    @BeforeMethod
+    public void setUp() {
+        Browser.openBrowser("chrome");
+    }
+
     @Test
-    void testNestedFrameContent(){
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://the-internet.herokuapp.com/nested_frames");
-        driver.switchTo().frame("frame-top");
-        driver.switchTo().frame("frame-left");
-        String content = driver.findElement(By.xpath("/html/body")).getText();
-        Assert.assertTrue(content.contains("LEFT"));
+    void testNestedFrameContent() {
+        NestedFramePage nestedFramePage = new NestedFramePage();
+        nestedFramePage.open();
+        nestedFramePage.switchToFrame("frame-top");
+        nestedFramePage.switchToFrame("frame-left");
 
-        driver.switchTo().parentFrame();
-        driver.switchTo().frame("frame-middle");
-        String contentMiddle = driver.findElement(By.xpath("/html/body")).getText();
+        Assert.assertTrue(nestedFramePage.getBodyText().contains("LEFT"));
 
-        Assert.assertTrue(contentMiddle.contains("MIDDLE"));
+        nestedFramePage.switchToFrame("parent");
+        nestedFramePage.switchToFrame("frame-middle");
 
-        driver.switchTo().parentFrame();// be FRAME-TOP
-        driver.switchTo().frame("frame-right");
-        content = driver.findElement(By.xpath("/html/body")).getText();
-        Assert.assertTrue(content.contains("RIGHT"));
+        Assert.assertTrue(nestedFramePage.getBodyText().contains("MIDDLE"));
 
-        driver.switchTo().defaultContent(); // default content
-        driver.switchTo().frame("frame-bottom");
-        content = driver.findElement(By.xpath("/html/body")).getText();
-        Assert.assertTrue(content.contains("BOTTOM"));
+        nestedFramePage.switchToFrame("parent");
+        nestedFramePage.switchToFrame("frame-right");
 
-        driver.quit();
+        Assert.assertTrue(nestedFramePage.getBodyText().contains("RIGHT"));
 
+        nestedFramePage.switchToFrame("default");
+        nestedFramePage.switchToFrame("frame-bottom");
+
+        Assert.assertTrue(nestedFramePage.getBodyText().contains("BOTTOM"));
+    }
+
+    @AfterMethod
+    public void tearDown() {
+        Browser.quit();
     }
 }

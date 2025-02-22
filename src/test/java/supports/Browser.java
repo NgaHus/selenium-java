@@ -100,4 +100,14 @@ public class Browser {
         driver.switchTo().alert().sendKeys(keysToSend);
     }
 
+    public static void switchToFrame(String frameName){
+        if (frameName.equals("parent")) {
+            driver.switchTo().parentFrame();
+        }else if (frameName.equals("default")) {
+            driver.switchTo().defaultContent();
+        }else {
+            driver.switchTo().frame(frameName);
+        }
+    }
+
 }

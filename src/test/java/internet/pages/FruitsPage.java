@@ -7,12 +7,8 @@ import supports.Browser;
 public class FruitsPage {
     Select select;
     public FruitsPage() {
-        open();
-        select = new Select(Browser.getElement(By.id("fruits")));
-    }
-
-    public void open(){
         Browser.visit("https://output.jsbin.com/osebed/2");
+        select = new Select(Browser.getElement(By.id("fruits")));
     }
 
     public FruitsPage select(String option){
