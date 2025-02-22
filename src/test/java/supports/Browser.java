@@ -49,15 +49,21 @@ public class Browser {
     public static void visit(String url){
         driver.get(url);
     }
+
     public static void quit(){
         driver.quit();
     }
+
     public static String getCurrentUrl(){
         return driver.getCurrentUrl();
     }
+
+    public static String getTitle(){
+        return driver.getTitle();
+    }
+
     public static void click(By locator){
         wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
-//        driver.findElement(locator).click();
     }
 
     public static void fill(By locator,CharSequence... withText){

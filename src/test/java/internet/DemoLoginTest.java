@@ -1,24 +1,21 @@
 package internet;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+import internet.pages.SauceDemoPage;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import supports.Browser;
 
 public class DemoLoginTest {
-    WebDriver driver;
+    SauceDemoPage sauceDemoPage;
 
     @BeforeMethod
     public void setUp() {
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("--headless=new");
-        driver = new ChromeDriver(chromeOptions);
-        driver.get("https://www.saucedemo.com/");
+        Browser.openBrowser("chrome");
+        sauceDemoPage = new SauceDemoPage();
+        sauceDemoPage.open();
     }
 
     @DataProvider
@@ -30,12 +27,10 @@ public class DemoLoginTest {
 
     @Test(dataProvider = "testSuccessData")
     void loginSuccessTest(String username,String password,String expectedUrl) {
-        driver.findElement(By.id("user-name")).sendKeys(username);
-        driver.findElement(By.id("password")).sendKeys(password);
-        driver.findElement(By.cssSelector("input[type=submit]")).click();
+        sauceDemoPage.login(username, password);
 
-        Assert.assertEquals(driver.getCurrentUrl(),expectedUrl);
-        Assert.assertEquals(driver.getTitle(),"Swag Labs");
+        Assert.assertEquals(Browser.getCurrentUrl(),expectedUrl);
+        Assert.assertEquals(Browser.getTitle(),"Swag Labs");
     }
 
     @DataProvider
@@ -56,16 +51,14 @@ public class DemoLoginTest {
 
     @Test(dataProvider = "testFailData")
     void loginFailTest(String username,String password,String expectedUrl,String expectedMessage) {
-        driver.findElement(By.id("user-name")).sendKeys(username);
-        driver.findElement(By.id("password")).sendKeys(password);
-        driver.findElement(By.cssSelector("input[type=submit]")).click();
+        sauceDemoPage.login(username, password);
 
-        Assert.assertEquals(driver.getCurrentUrl(),expectedUrl);
-        Assert.assertEquals(driver.findElement(By.xpath("//*[@data-test='error']")).getText(), expectedMessage);
+        Assert.assertEquals(Browser.getCurrentUrl(),expectedUrl);
+        Assert.assertEquals(sauceDemoPage.getErrorMessage(), expectedMessage);
     }
 
     @AfterMethod
     public void tearDown() {
-        driver.quit();
+        Browser.quit();
     }
 }
