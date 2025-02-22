@@ -13,6 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.List;
 
 public class Browser {
     private static WebDriver driver;
@@ -87,6 +88,10 @@ public class Browser {
 
     public static WebElement getElement(By locator){
         return driver.findElement(locator);
+    }
+
+    public static List<WebElement> getElements(By locator){
+        return driver.findElements(locator);
     }
 
     public static boolean isSelected(By locator){
