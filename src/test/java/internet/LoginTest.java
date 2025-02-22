@@ -1,14 +1,20 @@
 package internet;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import internet.pages.LoginPage;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import supports.Browser;
 
 public class LoginTest
 {
+    @BeforeMethod
+    public void setUp() {
+        Browser.openBrowser("chrome");
+    }
+
     @DataProvider
     Object[][] testData(){
         return new Object[][]{
@@ -22,14 +28,16 @@ public class LoginTest
 
     @Test(dataProvider = "testData")
     void authenticationFormTest(String username,String password,String expectedUrl,String expectedMessageType,String expectedMessageContent) {
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://the-internet.herokuapp.com/login");
-        driver.findElement(By.id("username")).sendKeys(username);
-        driver.findElement(By.id("password")).sendKeys(password);
-        driver.findElement(By.cssSelector("button[type=submit]")).click();
+        LoginPage  loginPage = new LoginPage();
+        loginPage.open();
+        loginPage.login(username, password);
 
-        Assert.assertEquals(driver.getCurrentUrl(),expectedUrl);
-        Assert.assertTrue(driver.findElement(By.className(expectedMessageType)).getText().contains(expectedMessageContent));
-        driver.quit();
+        Assert.assertEquals(Browser.getCurrentUrl(),expectedUrl);
+        Assert.assertTrue(loginPage.getMessage(expectedMessageType).contains(expectedMessageContent));
+    }
+
+    @AfterMethod
+    public void tearDown() {
+        Browser.quit();
     }
 }
