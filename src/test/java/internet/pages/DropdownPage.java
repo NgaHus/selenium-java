@@ -3,10 +3,11 @@ package internet.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
 import supports.Browser;
+import supports.Util;
 
 public class DropdownPage {
     public void open(){
-        Browser.visit("https://the-internet.herokuapp.com/dropdown");
+        Browser.visit(Util.getBaseUrl() + "/dropdown");
     }
 
     public void select(String option){
